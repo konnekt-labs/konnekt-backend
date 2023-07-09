@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "serve": "bun  --watch src/index.ts"
+    "serve": "bun src/index.ts",
+    "serve:watch": "bun  --watch src/index.ts"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",

@@ -1,5 +1,7 @@
 const resolvers = {
   Query: {
-    auth: async () => {},
+    // auth: async () => {},
   },
 };
+
+export default resolvers;

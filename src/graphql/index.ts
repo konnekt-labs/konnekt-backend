@@ -1,11 +1,11 @@
 import { createYoga, createSchema, YogaInitialContext } from "graphql-yoga";
 import { getGraphQlTypeDefs } from "./typedefs";
 import { User, Post } from "../models";
-import { PostResolver } from "./resolvers";
+import { PostResolver, UserResolver } from "./resolvers";
 
 const typeDefs = await getGraphQlTypeDefs();
 
-const resolvers = [PostResolver];
+const resolvers = [PostResolver, UserResolver];
 
 export interface Context extends YogaInitialContext {
   dataSources: {
