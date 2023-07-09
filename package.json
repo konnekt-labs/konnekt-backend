@@ -1,0 +1,26 @@
+{
+  "name": "konnekt-backend",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "serve": "bun  --watch src/index.ts"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
+    "bun-types": "^0.6.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.7.5",
+    "bcrypt": "^5.1.0",
+    "bson": "^5.4.0",
+    "graphql": "^16.7.1",
+    "graphql-tools": "^9.0.0",
+    "graphql-yoga": "^4.0.3",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.3.2",
+    "mongoose-geojson-schema": "^2.2.4"
+  }
+}

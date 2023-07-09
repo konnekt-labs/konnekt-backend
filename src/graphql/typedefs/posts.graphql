@@ -1,0 +1,99 @@
+enum SharedWith {
+  PUBLIC
+  PRIVATE
+  FRIENDS
+}
+
+enum ContentType {
+  IMAGE
+  VIDEO
+  OBJECT
+}
+
+type Point {
+  type: String!
+  coordinates: [Float!]!
+}
+
+type LocationMetadata {
+  city: String
+  state: String
+  country: String
+  vectorIndex: Int
+  metadata: JSON
+}
+
+type Post {
+  _id: ID!
+  title: String
+  hashtags: [String]
+  contentType: ContentType
+  image: String
+  video: String
+  object: String
+  sharedWith: SharedWith
+  isDeleted: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  location: Point!
+  locationMetadata: LocationMetadata
+  views: Int
+  userId: ID
+}
+
+type Query {
+  getAllPostsByUser: [Post]
+  getPostById(_id: ID): Post
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): Post
+  updatePost(id: ID!, input: UpdatePostInput!): Post
+  deletePost(id: ID!): Post
+  # Add other mutations here
+}
+
+input CreatePostInput {
+  title: String
+  hashtags: [String]
+  contentType: ContentType
+  image: String
+  video: String
+  object: String
+  sharedWith: SharedWith
+  isDeleted: Boolean
+  location: PointInput!
+  locationMetadata: LocationMetadataInput
+  views: Int
+  userId: ID
+}
+
+input UpdatePostInput {
+  title: String
+  hashtags: [String]
+  contentType: ContentType
+  image: String
+  video: String
+  object: String
+  sharedWith: SharedWith
+  isDeleted: Boolean
+  location: PointInput
+  locationMetadata: LocationMetadataInput
+  views: Int
+  userId: ID
+}
+
+input PointInput {
+  coordinates: [Float!]!
+}
+
+input LocationMetadataInput {
+  city: String
+  state: String
+  country: String
+  vectorIndex: Int
+  metadata: JSON
+}
+
+scalar DateTime
+scalar JSON
