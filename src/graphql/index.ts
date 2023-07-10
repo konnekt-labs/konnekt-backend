@@ -11,7 +11,7 @@ import { logFn } from "./logs";
 
 const typeDefs = await getGraphQlTypeDefs();
 
-const resolvers = [PostResolver, UserResolver];
+const resolvers = [UserResolver, PostResolver];
 
 export interface Context extends YogaInitialContext {
   dataSources: {

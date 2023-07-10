@@ -47,32 +47,32 @@ export const auth = async (
   if (!response.email) {
     throw new GraphQLError("Email could not be found");
   }
-  const user = await context.dataSources.UserModel.findOneAndUpdate(
-    {
-      email: response.email,
-      isDeleted: false,
-    },
-    {
-      $setOnInsert: {
-        avatar: response.picture,
-        name: name,
-        email: response.email,
-        friends: [],
-        isDeleted: false,
-        username: await nanoid(10),
-      },
-    }
-  );
+  let user = await context.dataSources.UserModel.findOne({
+    email: response.email,
+    isDeleted: false,
+  });
   if (!user) {
-    throw new GraphQLError("Failed to create user");
+    user = new context.dataSources.UserModel({
+      email: response.email,
+      username: await nanoid(8),
+      name: name,
+      avatar: response.picture || "",
+      friends: [],
+      posts: [],
+    });
+    await user.save();
   }
-  const token = generateToken({
+  const userObject: IUser = user.toObject();
+  userObject._id = String(userObject._id);
+  console.log(userObject);
+  const token = await generateToken({
     _id: String(user._id),
     email: user.email,
     username: user.username,
   });
+  console.log(token);
   return {
     token,
-    user,
+    user: userObject,
   } as AuthPayload;
 };
