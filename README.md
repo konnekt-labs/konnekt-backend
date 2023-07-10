@@ -1,6 +1,8 @@
 # konnekt-backend
 
 To install dependencies:
+![image](https://github.com/konnekt-labs/konnekt-backend/assets/38348296/6c510d95-f314-43ce-bbf3-1c0b691688d5)
+
 
 ```bash
 bun install
