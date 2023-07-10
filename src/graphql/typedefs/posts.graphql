@@ -42,8 +42,13 @@ type Post {
 }
 
 type Query {
-  getAllPostsByUser: [Post]
+  getAllPostsByUser(args:PaginationArgs): [Post]
   getPostById(_id: ID): Post
+}
+
+input PaginationArgs {
+  page: Int
+  pageSize: Int 
 }
 
 type Mutation {
@@ -55,32 +60,23 @@ type Mutation {
 
 input CreatePostInput {
   title: String
-  hashtags: [String]
   contentType: ContentType
   image: String
   video: String
   object: String
   sharedWith: SharedWith
   isDeleted: Boolean
-  location: PointInput!
+  location: [Float!]!
   locationMetadata: LocationMetadataInput
-  views: Int
-  userId: ID
 }
 
 input UpdatePostInput {
-  title: String
-  hashtags: [String]
   contentType: ContentType
   image: String
   video: String
   object: String
   sharedWith: SharedWith
   isDeleted: Boolean
-  location: PointInput
-  locationMetadata: LocationMetadataInput
-  views: Int
-  userId: ID
 }
 
 input PointInput {

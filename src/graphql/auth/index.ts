@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
 import { Context } from "..";
 import { IUser } from "../../models/User";
-import { SignJWT, jwtVerify } from "jose";
+import { SignJWT, jwtDecrypt, jwtVerify } from "jose";
 import { JWT_SECRET } from "../../utils/consts";
 import { validateOid } from "../../utils/validateOId";
 
@@ -63,10 +63,14 @@ export const generateToken = async (userInput: UserInput) => {
 const verifyToken = async (token: string) => {
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
-    if (!payload.sub) {
+    if (!payload) {
       throw new GraphQLError("Unauthorized");
     }
-    return JSON.parse(payload.sub) as UserInput;
+    return {
+      _id: payload._id,
+      email: payload.email,
+      username: payload.username,
+    } as UserInput;
   } catch (error) {
     console.log(error);
     throw new GraphQLError("Unauthorized");

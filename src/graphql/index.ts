@@ -20,14 +20,15 @@ export interface Context extends YogaInitialContext {
   };
 }
 
-const getContext = (req: YogaInitialContext) => {
-  return {
+const getContext = (req: YogaInitialContext): Context => {
+  const context: Context = {
     ...req,
     dataSources: {
       UserModel: User,
       PostModel: Post,
     },
   };
+  return context;
 };
 
 const schema = createSchema<Context>({
@@ -36,10 +37,10 @@ const schema = createSchema<Context>({
 });
 
 export const yogaServer = createYoga({
+  context: getContext,
   schema,
   landingPage: false,
   logging: true,
-  context: getContext,
   plugins: [
     useLogger({
       logFn,

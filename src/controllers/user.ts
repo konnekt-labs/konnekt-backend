@@ -6,7 +6,11 @@ import { validateOid } from "../utils/validateOId";
 import { IUser } from "../models/User";
 import { GraphQLError } from "graphql";
 
-export const getCurrentUser = async (context: Context) => {
+export const getCurrentUser = async (
+  parent: any,
+  query: {},
+  context: Context
+) => {
   const user = await getUser(context);
   return user;
 };
@@ -64,13 +68,11 @@ export const auth = async (
   }
   const userObject: IUser = user.toObject();
   userObject._id = String(userObject._id);
-  console.log(userObject);
   const token = await generateToken({
     _id: String(user._id),
     email: user.email,
     username: user.username,
   });
-  console.log(token);
   return {
     token,
     user: userObject,

@@ -28,7 +28,7 @@ export interface CreatePostInput {
   video?: string;
   object?: string;
   sharedWith: SharedWith;
-  location?: PointInput;
+  location: Double[] | PointInput;
   locationMetadata?: LocationMetadataInput;
   user?: IUser;
 }

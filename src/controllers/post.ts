@@ -6,8 +6,14 @@ import { validateOid } from "../utils/validateOId";
 import { CreatePostInput } from "../utils/types";
 import { grabHashtags } from "../utils/grabHashtags";
 
+type PaginationArgs = {
+  page?: number;
+  pageSize?: number;
+};
+
 export const getAllPostsByUser = async (
-  args: { page?: number; pageSize?: number },
+  parent: any,
+  args: PaginationArgs,
   context: Context
 ) => {
   const user = await getUser(context);
@@ -17,6 +23,7 @@ export const getAllPostsByUser = async (
   if (!args.pageSize) {
     args.pageSize = 20;
   }
+  --args.page;
   try {
     const posts = await Post.find({
       $or: [
@@ -32,7 +39,7 @@ export const getAllPostsByUser = async (
       ],
       isDeleted: false,
     })
-      .sort([["createdAt", -1]])
+      .sort({ createdAt: -1 })
       .skip(args.pageSize * args.page)
       .limit(args.pageSize);
     return posts;
@@ -68,6 +75,11 @@ export const createPost = async (
   const user = await getUser(context);
   input.user = user;
   input.sharedWithList = user.friends;
+  input.location = {
+    type: "Point",
+    // @ts-ignore
+    coordinates: input.location,
+  };
   try {
     if (input.title) input.hashtags = grabHashtags(input.title);
     const post = await Post.create(input);
