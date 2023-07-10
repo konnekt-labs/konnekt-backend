@@ -48,8 +48,8 @@ type Query {
 
 type Mutation {
   createPost(input: CreatePostInput!): Post
-  updatePost(id: ID!, input: UpdatePostInput!): Post
-  deletePost(id: ID!): Post
+  updatePost(_id: ID!, input: UpdatePostInput!): Post
+  deletePost(_id: ID!): Post
   # Add other mutations here
 }
 

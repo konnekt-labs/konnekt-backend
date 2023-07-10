@@ -42,7 +42,7 @@ interface UserInput {
   email: string;
 }
 
-const generateToken = (userInput: UserInput) => {
+export const generateToken = (userInput: UserInput) => {
   const { _id, email, username } = userInput;
   const token = jwt.sign({ _id, email, username }, JWT_SECRET, {
     expiresIn: JWT_EXPIRES_IN,
@@ -63,6 +63,7 @@ const verifyToken = (token: string) => {
     }
     return JSON.parse(payload.sub) as UserInput;
   } catch (error) {
+    console.log(error);
     throw new GraphQLError("Unauthorized");
   }
 };

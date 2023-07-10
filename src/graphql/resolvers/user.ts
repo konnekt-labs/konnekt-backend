@@ -1,6 +1,12 @@
+import { auth, getCurrentUser, getUserById } from "../../controllers/user";
+
 const resolvers = {
   Query: {
-    // auth: async () => {},
+    getUserById,
+    getCurrentUser,
+  },
+  Mutation: {
+    auth,
   },
 };
 

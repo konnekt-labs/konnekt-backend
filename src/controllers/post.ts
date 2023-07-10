@@ -1,4 +1,4 @@
-import { GraphQLError, validate } from "graphql";
+import { GraphQLError } from "graphql";
 import { Context } from "../graphql";
 import { getUser } from "../graphql/auth";
 import { Post } from "../models";
@@ -37,6 +37,7 @@ export const getAllPostsByUser = async (
       .limit(args.pageSize);
     return posts;
   } catch (error) {
+    console.log(error);
     return new GraphQLError(`Couldnt fetch posts.`);
   }
 };
@@ -52,6 +53,7 @@ export const getPostById = async (
     const post = await Post.findById(id);
     return post;
   } catch (error) {
+    console.log(error);
     throw new Error(`Failed to fetch post with id: ${_id}. Error: ${error}`);
   }
 };
@@ -69,6 +71,7 @@ export const createPost = async (
     const post = await Post.create(input);
     return post;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to create post");
   }
 };
@@ -94,6 +97,7 @@ export const updatePost = async (
     );
     return post.acknowledged;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to create post");
   }
 };
@@ -113,6 +117,7 @@ export const deletePost = async (
     });
     return post.acknowledged;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to delete post");
   }
 };

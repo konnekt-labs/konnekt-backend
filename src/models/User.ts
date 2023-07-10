@@ -2,6 +2,7 @@ import mongoose, { ObjectId } from "mongoose";
 
 export interface IUser {
   _id?: ObjectId | String;
+  avatar?: string;
   username: string;
   email: string;
   name: string;
@@ -15,6 +16,7 @@ export interface IUser {
 
 const userSchema = new mongoose.Schema<IUser>({
   _id: { type: mongoose.Types.ObjectId, auto: true },
+  avatar: { type: String, default: "https://i.imgur.com/6VBx3io.png" },
   username: { type: String, unique: true },
   email: { type: String, unique: true },
   name: String,

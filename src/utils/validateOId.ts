@@ -6,6 +6,7 @@ export function validateOid(oid: string) {
     const id = new ObjectId(oid);
     return id;
   } catch (error) {
+    console.log(error);
     throw new GraphQLError(`Invalid ID: ${oid}`);
   }
 }
