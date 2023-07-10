@@ -42,14 +42,10 @@ type Post {
 }
 
 type Query {
-  getAllPostsByUser(args:PaginationArgs): [Post]
+  getAllPostsByUser(page:Int, pageSize: Int): [Post]
   getPostById(_id: ID): Post
 }
 
-input PaginationArgs {
-  page: Int
-  pageSize: Int 
-}
 
 type Mutation {
   createPost(input: CreatePostInput!): Post

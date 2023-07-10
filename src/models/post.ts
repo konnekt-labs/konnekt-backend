@@ -40,7 +40,7 @@ interface IPost {
   location: typeof pointSchema;
   locationMetaData: typeof LocationMetadata;
   views: number;
-  userId: number;
+  userId: ObjectId;
 }
 
 const postSchema = new mongoose.Schema({
@@ -80,7 +80,7 @@ const postSchema = new mongoose.Schema({
   locationMetadata: { type: LocationMetadata, nullable: true },
 
   views: { type: Number, default: 0 },
-  userId: { type: mongoose.Types.ObjectId, ref: "User" },
+  userId: { type: mongoose.Types.ObjectId },
 });
 
 export const Post = mongoose.model("Post", postSchema);

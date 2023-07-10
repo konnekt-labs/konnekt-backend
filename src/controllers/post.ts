@@ -13,17 +13,18 @@ type PaginationArgs = {
 
 export const getAllPostsByUser = async (
   parent: any,
-  args: PaginationArgs,
+  { page, pageSize }: PaginationArgs,
   context: Context
 ) => {
   const user = await getUser(context);
-  if (!args.page) {
-    args.page = 1;
+  if (!page) {
+    page = 1;
   }
-  if (!args.pageSize) {
-    args.pageSize = 20;
+  if (!pageSize) {
+    pageSize = 20;
   }
-  --args.page;
+  --page;
+
   try {
     const posts = await Post.find({
       $or: [
@@ -40,8 +41,8 @@ export const getAllPostsByUser = async (
       isDeleted: false,
     })
       .sort({ createdAt: -1 })
-      .skip(args.pageSize * args.page)
-      .limit(args.pageSize);
+      .skip(pageSize * page)
+      .limit(pageSize);
     return posts;
   } catch (error) {
     console.log(error);
@@ -73,7 +74,7 @@ export const createPost = async (
   context: Context
 ) => {
   const user = await getUser(context);
-  input.user = user;
+  input.user = user._id;
   input.sharedWithList = user.friends;
   input.location = {
     type: "Point",
@@ -98,7 +99,6 @@ export const updatePost = async (
   const user = await getUser(context);
   const id = validateOid(_id);
   try {
-    input.user = user;
     const post = await Post.updateOne(
       {
         _id: id,

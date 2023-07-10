@@ -30,7 +30,7 @@ export interface CreatePostInput {
   sharedWith: SharedWith;
   location: Double[] | PointInput;
   locationMetadata?: LocationMetadataInput;
-  user?: IUser;
+  user?: ObjectId | String;
 }
 
 export type LocationMetadataInput = {
