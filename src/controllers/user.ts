@@ -4,6 +4,7 @@ import { generateToken, getUser } from "../graphql/auth";
 import { verifyToken } from "../utils/firebase/auth";
 import { validateOid } from "../utils/validateOId";
 import { IUser } from "../models/User";
+import { GraphQLError } from "graphql";
 
 export const getCurrentUser = async (context: Context) => {
   const user = await getUser(context);
@@ -44,7 +45,7 @@ export const auth = async (
 ) => {
   const response = await verifyToken(firebaseToken);
   if (!response.email) {
-    throw new Error("Email could not be found");
+    throw new GraphQLError("Email could not be found");
   }
   const user = await context.dataSources.UserModel.findOneAndUpdate(
     {
@@ -63,7 +64,7 @@ export const auth = async (
     }
   );
   if (!user) {
-    throw new Error("Failed to create user");
+    throw new GraphQLError("Failed to create user");
   }
   const token = generateToken({
     _id: String(user._id),

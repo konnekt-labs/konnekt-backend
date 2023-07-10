@@ -54,7 +54,9 @@ export const getPostById = async (
     return post;
   } catch (error) {
     console.log(error);
-    throw new Error(`Failed to fetch post with id: ${_id}. Error: ${error}`);
+    throw new GraphQLError(
+      `Failed to fetch post with id: ${_id}. Error: ${error}`
+    );
   }
 };
 
@@ -72,7 +74,7 @@ export const createPost = async (
     return post;
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to create post");
+    throw new GraphQLError("Failed to create post");
   }
 };
 
@@ -98,7 +100,7 @@ export const updatePost = async (
     return post.acknowledged;
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to create post");
+    throw new GraphQLError("Failed to create post");
   }
 };
 
@@ -118,6 +120,6 @@ export const deletePost = async (
     return post.acknowledged;
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to delete post");
+    throw new GraphQLError("Failed to delete post");
   }
 };
