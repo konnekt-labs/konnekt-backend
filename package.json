@@ -22,6 +22,7 @@
     "graphql-yoga": "^4.0.3",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.3.2",
-    "mongoose-geojson-schema": "^2.2.4"
+    "mongoose-geojson-schema": "^2.2.4",
+    "winston": "^3.9.0"
   }
 }

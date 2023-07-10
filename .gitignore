@@ -1,5 +1,8 @@
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
+# VSCODE
+.vscode/
+
 # Logs
 
 logs
@@ -9,6 +12,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+*.log
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 

@@ -1,7 +1,13 @@
-import { createYoga, createSchema, YogaInitialContext } from "graphql-yoga";
+import {
+  createYoga,
+  createSchema,
+  YogaInitialContext,
+  useLogger,
+} from "graphql-yoga";
 import { getGraphQlTypeDefs } from "./typedefs";
 import { User, Post } from "../models";
 import { PostResolver, UserResolver } from "./resolvers";
+import { logFn } from "./logs";
 
 const typeDefs = await getGraphQlTypeDefs();
 
@@ -34,4 +40,9 @@ export const yogaServer = createYoga({
   landingPage: false,
   logging: true,
   context: getContext,
+  plugins: [
+    useLogger({
+      logFn,
+    }),
+  ],
 });
